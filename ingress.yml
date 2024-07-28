@@ -1,0 +1,23 @@
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wisecow-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+  - hosts:
+    - <your-ipadress>.nip.io
+    secretName: tls-secret
+  rules:
+  - host: <your-ipadress>.nip.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: wisecow-service
+            port:
+              number: 80
